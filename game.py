@@ -28,22 +28,18 @@ class Game:
 			print("===========")
 			if numShots == 0:
 				print("||   |   ||")
-				print("||   ----||")
+				
 			elif numShots == 1 or currFrame.isStrike:
 				if currFrame.isStrike:
 					print("|| X | - ||")
-					print("||   ----||")
 				else:
 					print("|| " + str(shotsList[0].pinsKnocked) + " | - ||")
-					print("||   ----||")
 			elif numShots == 2:
 				if currFrame.isSpare:
 					print("|| " + str(shotsList[0].pinsKnocked) + " | / ||")
-					print("||   ----||")
 				else:
 					print("|| " + str(shotsList[0].pinsKnocked) + " | " + str(shotsList[1].pinsKnocked) + " ||")
-					print("||   ----||")
-					
+			print("||   ----||")
 			if math.floor(frameScore / 100) > 0:
 				print("||   "  + str(frameScore) + " ||")
 				print("===========")
@@ -54,10 +50,23 @@ class Game:
 				print("||     "  + str(frameScore) + " ||")
 				print("===========")
 		else:
+			thirdScore = "0"
+			if shotsList[2].pinsKnocked == 10:
+				thirdScore = "X"
+			else:
+				thirdScore =  str(shotsList[2].pinsKnocked)
+
+
 			print("===============")
-			print("||   |   |   ||")
-			print("||   ----|   ||")
-			print("||     "  + str(frameScore) + " ||")
+			if currFrame.isStrike:
+				print("|| X | - | "+thirdScore+" ||")
+			elif currFrame.isSpare:
+				print("|| " + str(shotsList[0].pinsKnocked) + " | - | "+thirdScore+" ||")
+			else:
+				print("|| " + str(shotsList[0].pinsKnocked) + " | " + str(shotsList[1].pinsKnocked) + " | " + thirdScore + " ||")
+
+			print("||   --------||")
+			print("||       "  + str(frameScore) + " ||")
 			print("===============")
 
 	def getStrikeBonusShots(self, frameNum):
