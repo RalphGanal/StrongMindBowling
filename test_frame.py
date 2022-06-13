@@ -17,14 +17,15 @@ for i in range(len(testValues)):
 
 	if i % 2 == 1:
 		frameCounter += 1
-		
-	if i == len(testValues)-1:
-		currentFrame.addShot(ShotFactory.createShot(10, currentFrame)) #A strike to finish out the bonus for last frame
 
+
+currentGame.frames[9].addShot(ShotFactory.createShot(10, currentFrame)) #A strike to finish out the bonus for last frame]
 print("\n")
 
-for i in range(0, 11):
+for i in range(0, 10):
 	print("Total Score as of Frame ", i, ": ", str(currentGame.calcTotalScore(i)))
 	
-if currentGame.calcTotalScore(i) == 149:
+if currentGame.calcTotalScore(9) == 149:
 	print("TEST SUCCESS")
+else:
+	print("TEST FAILURE")

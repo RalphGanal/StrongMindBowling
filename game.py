@@ -1,13 +1,65 @@
 import frame
+import math
 
 class Game:
 	def __init__(self, gameName):
 		self.gameName = gameName
 		self.frames = []
 
-		for i in range(0, 11):
+		for i in range(0, 10):
 			self.frames.append(frame.Frame(self, i))
-			
+
+	def runGame(self):
+		x = 1
+
+	def drawScoreBoard(self):
+		lines = ["","","","","",""]
+		
+		
+	def printFrame(self, frameNum):
+		currFrame= self.frames[frameNum]
+		shotsList = currFrame.shots
+		numShots = len(shotsList)
+
+		frameScore = self.calcTotalScore(frameNum)
+
+		print("Frame", frameNum)
+		if frameNum != 9:
+			print("===========")
+			if numShots == 0:
+				print("||   |   ||")
+				print("||   ----||")
+			elif numShots == 1 or currFrame.isStrike:
+				if currFrame.isStrike:
+					print("|| X | - ||")
+					print("||   ----||")
+				else:
+					print("|| " + str(shotsList[0].pinsKnocked) + " | - ||")
+					print("||   ----||")
+			elif numShots == 2:
+				if currFrame.isSpare:
+					print("|| " + str(shotsList[0].pinsKnocked) + " | / ||")
+					print("||   ----||")
+				else:
+					print("|| " + str(shotsList[0].pinsKnocked) + " | " + str(shotsList[1].pinsKnocked) + " ||")
+					print("||   ----||")
+					
+			if math.floor(frameScore / 100) > 0:
+				print("||   "  + str(frameScore) + " ||")
+				print("===========")
+			elif math.floor(frameScore / 10) > 0:
+				print("||    "  + str(frameScore) + " ||")
+				print("===========")
+			else:
+				print("||     "  + str(frameScore) + " ||")
+				print("===========")
+		else:
+			print("===============")
+			print("||   |   |   ||")
+			print("||   ----|   ||")
+			print("||     "  + str(frameScore) + " ||")
+			print("===============")
+
 	def getStrikeBonusShots(self, frameNum):
 		if frameNum != 9:
 			nextFrame = self.frames[frameNum+1]
@@ -58,10 +110,12 @@ class Game:
 
 	def calcTotalScore(self, frameNum):
 		totalScore = 0
-		for i in range(frameNum):
+		for i in range(frameNum+1):
 			self.frames[i].calculateScore()
 			totalScore += self.frames[i].score
 
 			#print("Calcing frame: ", i, " individual score", self.frames[i].score)
+			#for shot in self.frames[i].shots:
+			#	print("Shot score", shot.pinsKnocked)
 		
 		return totalScore
