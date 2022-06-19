@@ -1,12 +1,20 @@
+from shot import ShotFactory
+
 class Frame:
 	def __init__(self, game, frameNum):
 		self.game = game
 		self.frameNum = frameNum
 		self.score = 0
-		self.shots = []
-		self.observers = []
 		self.isStrike = False
 		self.isSpare = False
+		
+		self.shots = []
+		self.observers = []
+
+		shots.append(ShotFactory.createShot(0, self)])
+		shots.append(ShotFactory.createShot(0, self)])
+		if frameNum == 9:
+			shots.append(ShotFactory.createShot(0, self)])
 
 	def addShot(self, shot):
 		if self.isValidShot(shot):
@@ -20,14 +28,19 @@ class Frame:
 			print("Shot invalid, shot was not added to frame")
 
 	def calculateScore(self):
-		if self.shots[0].pinsKnocked == 10: #If first shot hit 10 then strike
-			self.isStrike = True
-			self.calculateStrike()
-		elif self.sumOfShots() == 10:
-			self.isSpare = True
-			self.calculateSpare()
+		if len(self.shots) > 0:
+			if self.shots[0].pinsKnocked == 10: #If first shot hit 10 then strike
+				self.isStrike = True
+				self.calculateStrike()
+			elif self.sumOfShots() == 10:
+				self.isSpare = True
+				self.calculateSpare()
+			else:
+				self.isStrike = False
+				self.isSpare = False
+				self.score = self.sumOfShots()
 		else:
-			self.score = self.sumOfShots()
+			self.score = 0
 
 	def calculateStrike(self):
 		for shot in self.game.getStrikeBonusShots(self.frameNum):
@@ -67,8 +80,14 @@ class Frame:
 			else:
 				return True
 		else:
-			return True
+			if len(self.shots) == 2 and self.sumOfShots() < 10:
+				print("You do not have any extra shots to play")
+				return False
+			else:
+				return True
 
 	def bindTo(self, callback):
 		if callback not in self.observers:
 			self.observers.append(callback)
+			
+	def modifyShot(self, shotNum, pinsKnocked)
