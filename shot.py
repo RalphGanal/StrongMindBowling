@@ -1,7 +1,6 @@
 class Shot:
-	def __init__(self, pinsKnocked, frame):
+	def __init__(self, pinsKnocked):
 		self._pinsKnocked = pinsKnocked;
-		self.frame = frame
 		self.observers = []
 
 	@property
@@ -34,8 +33,8 @@ class Shot:
 
 class ShotFactory:
 	@staticmethod
-	def createShot(pinsKnocked, frame):
+	def createShot(pinsKnocked):
 		if Shot.isValidPins(pinsKnocked):
-			return Shot(pinsKnocked, frame)
+			return Shot(pinsKnocked)
 		else:
 			return None

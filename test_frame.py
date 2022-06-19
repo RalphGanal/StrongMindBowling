@@ -10,16 +10,19 @@ testValues = [8, 2, 5, 4, 9, 0, 10, 0, 10, 0, 5, 5, 5, 3, 6, 3, 9, 1, 9, 1]
 #For testing frame only, skips actual game logic to be implemented later (ie shouldn't need 0s to space out Strikes)
 
 frameCounter = 0
+shotNum = 0
 for i in range(len(testValues)):
 	print("Frame # ", frameCounter, "Attempting to Add ", testValues[i])
 	currentFrame = currentGame.frames[frameCounter]
-	currentFrame.addShot( ShotFactory.createShot(testValues[i], currentFrame))
+	currentFrame.modifyShot(shotNum, testValues[i])
+	shotNum += 1
 
 	if i % 2 == 1:
 		frameCounter += 1
+		shotNum = 0
 
 #Manually add a strike to finish out the bonus for last frame due to not having game logic here to decide a third input is needed
-currentGame.frames[9].addShot(ShotFactory.createShot(10, currentFrame))
+currentGame.frames[9].modifyShot(2, 10)
 
 print("\n")
 

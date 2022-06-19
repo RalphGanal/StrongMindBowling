@@ -8,7 +8,16 @@ class Game:
 		self.frames = []
 
 		for i in range(0, 10):
-			self.frames.append(frame.Frame(self, i))
+			prevFrame = None
+			
+			if i > 0:
+				prevFrame = self.frames[i-1]
+
+			newFrame = frame.Frame(self, i, prevFrame)
+			self.frames.append(newFrame)
+			
+			if prevFrame:
+				prevFrame.nextFrame = newFrame
 
 	def runGame(self):
 		isRunning = True
