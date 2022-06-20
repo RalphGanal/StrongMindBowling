@@ -12,7 +12,7 @@ expectedResult = [1, 1, 0, 0, 0 ,0]
 counter = 0
 
 for i in testValues:
-	shot = ShotFactory.createShot(i, sampleFrame)
+	shot = ShotFactory.createShot(i)
 	if shot:
 		print("Shot knocked " + str(shot.pinsKnocked) + " pins over")
 		if expectedResult[counter]:
