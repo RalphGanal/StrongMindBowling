@@ -23,7 +23,7 @@ class Frame:
 		if self.shots[0].pinsKnocked == 10: #If first shot hit 10 then strike
 			self.isStrike = True
 			self.calculateStrike()
-		elif self.sumOfShots() == 10:
+		elif self.shots[0].pinsKnocked + self.shots[1].pinsKnocked == 10:
 			self.isSpare = True
 			self.calculateSpare()
 		else:
@@ -45,7 +45,7 @@ class Frame:
 		return total
 
 	def modifyShot(self, shotNum, pinsKnocked):
-		print("Modifying shot", shotNum)
+		#print("Modifying shot", shotNum)
 		if self.isValidShot(shotNum, pinsKnocked):
 			self.shots[shotNum].pinsKnocked = pinsKnocked
 			self.calculateScore()
@@ -66,5 +66,17 @@ class Frame:
 			if shotNum == 2 and self.sumOfShots() < 10:
 				print("ERROR: You do not have any extra shots to play")
 				return False
+			elif shotNum == 0:
+				if pinsKnocked + self.shots[0].pinsKnocked > 10:
+					print("ERROR: Total pins knocked cannot be more than 10")
+					return False
+				else:
+					return True
+			elif shotNum == 1:
+				if pinsKnocked + self.shots[1].pinsKnocked > 10 and not self.isStrike:
+					print("ERROR: Total pins knocked cannot be more than 10")
+					return False
+				else:
+					return True
 			else:
 				return True

@@ -33,11 +33,12 @@ class Game:
 			if choice.lower() == 'exit':
 				isRunning = False
 			else:
-				#try:
 				choice = int(choice)-1
-				self.modifyFrame(choice)
-				#except:
-				#	print("ERROR: Invalid Input for Frame")
+				
+				if choice >= 0 and choice <= len(self.frames):
+					self.modifyFrame(choice)
+				else:
+					print("ERROR: Enter valid frame #")
 				
 	def getFrame(self, frameNum):
 		return self.frames[frameNum]
@@ -70,7 +71,7 @@ class Game:
 	def modifyShot(self, frameNum, shotNum):
 		#print("In modify Shot")
 		currentFrame = self.frames[int(frameNum)]
-		currentShot = currentFrame.shots[shotNum-1]
+		currentShot = currentFrame.shots[shotNum]
 		print("\n")
 		print("\tCurrent Shot Value", currentShot.pinsKnocked)
 		newPinsKnocked = input("\tReplace with: ")
@@ -119,6 +120,8 @@ class Game:
 					return nextFrame.shots[0].pinsKnocked
 			else:
 				return 0
+		else:
+			return 0
 
 	def getSpareBonusShot(self, frameNum):
 		if frameNum != 9:
@@ -185,22 +188,27 @@ class Game:
 				print("===========")
 		else:
 			thirdScore = ""
+			secondScore = ""
 			if numShots == 3:
 				if shotsList[2].pinsKnocked == 10:
 					thirdScore = "X"
 				else:
 					thirdScore =  str(shotsList[2].pinsKnocked)
 
+				if shotsList[1].pinsKnocked == 10:
+					secondScore = "X"
+				else:
+					secondScore =  str(shotsList[1].pinsKnocked)
+
 
 			print("===============")
 			if currFrame.isStrike:
-				print("|| X | - | "+thirdScore+" ||")
+				if numShots > 1:
+					print("|| X | " + secondScore + " | "+thirdScore+" ||")
 			elif currFrame.isSpare:
 				print("|| " + str(shotsList[0].pinsKnocked) + " | / | "+thirdScore+" ||")
 			elif numShots >= 2:
-				print("|| " + str(shotsList[0].pinsKnocked) + " | " + str(shotsList[1].pinsKnocked) + " | " + thirdScore + " ||")
-			elif numShots == 1:
-				print("|| " + str(shotsList[0].pinsKnocked) + " |   | " + thirdScore + " ||")
+				print("|| " + str(shotsList[0].pinsKnocked) + " | " + secondScore + " | " + thirdScore + " ||")
 			else:
 				print("||   |   |   ||")
 
