@@ -34,10 +34,13 @@ class Game:
 				isRunning = False
 			else:
 				#try:
-				choice = int(choice)
+				choice = int(choice)-1
 				self.modifyFrame(choice)
 				#except:
 				#	print("ERROR: Invalid Input for Frame")
+				
+	def getFrame(self, frameNum):
+		return self.frames[frameNum]
 
 	def modifyFrame(self, frameNum):
 		isRunning = True
@@ -49,32 +52,30 @@ class Game:
 			choice = 0
 			
 			if frameNum != 9:
-				choice = input("\tChange which shot? (1, 2, 'new' or 'cancel'): ")
+				choice = input("\tChange which shot? (1, 2 or 'cancel'): ")
 			else:
-				choice = input("\tChange which shot? (1, 2, 3, or 'cancel'): ")
+				choice = input("\tChange which shot? (1, 2, 3 or 'cancel'): ")
 
 			if choice.lower() == 'cancel':
 				isRunning = False
-			elif choice.lower() == 'new':
-				self.addNewShot(frameNum)
 			else:
-				print("Going to Modify Shot")
-				choice = int(choice)
+				#print("Going to Modify Shot")
+				choice = int(choice)-1
 				
-				if len(self.frames[frameNum].shots) >= choice:
+				if choice < len(self.frames[frameNum].shots):
 					self.modifyShot(frameNum, choice)
 				else:
-					print("No shot to modify, please select 'new' instead.")
+					print("ERROR: Pick a valid shot to modify")
 
 	def modifyShot(self, frameNum, shotNum):
-		print("In modify Shot")
+		#print("In modify Shot")
 		currentFrame = self.frames[int(frameNum)]
 		currentShot = currentFrame.shots[shotNum-1]
 		print("\n")
 		print("\tCurrent Shot Value", currentShot.pinsKnocked)
 		newPinsKnocked = input("\tReplace with: ")
 
-		currentShot.pinsKnocked = int(newPinsKnocked)
+		self.getFrame(frameNum).modifyShot(shotNum, int(newPinsKnocked))
 		isRunning = False
 		
 	def addNewShot(self, frameNum):
@@ -156,7 +157,7 @@ class Game:
 
 		frameScore = self.calcTotalScore(frameNum)
 
-		print("Frame", frameNum)
+		print("Frame", frameNum+1)
 		if frameNum != 9:
 			print("===========")
 			if numShots == 0:

@@ -19,7 +19,7 @@ class Frame:
 		self.prevFrame = prevFrame
 
 	def calculateScore(self):
-		print("Calculating score of ", self.frameNum)
+		#print("Calculating score of ", self.frameNum)
 		if self.shots[0].pinsKnocked == 10: #If first shot hit 10 then strike
 			self.isStrike = True
 			self.calculateStrike()
@@ -55,16 +55,16 @@ class Frame:
 			newSum = self.sumOfShots() - self.shots[shotNum].pinsKnocked + pinsKnocked
 
 			if newSum > 10:
-				print("Total pins knocked cannot be more than 10")
+				print("ERROR: Total pins knocked cannot be more than 10")
 				return False
 			elif self.shots[0] == 10 and shotNum != 0:
-				print("This frame is already a strike")
+				print("ERROR: This frame is already a strike")
 				return False
 			else:
 				return True
 		else:
 			if shotNum == 2 and self.sumOfShots() < 10:
-				print("You do not have any extra shots to play")
+				print("ERROR: You do not have any extra shots to play")
 				return False
 			else:
 				return True
