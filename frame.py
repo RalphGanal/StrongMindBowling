@@ -63,18 +63,25 @@ class Frame:
 			else:
 				return True
 		else:
+			#print("Checking Shot:", shotNum)
 			if shotNum == 2 and self.sumOfShots() < 10:
 				print("ERROR: You do not have any extra shots to play")
 				return False
 			elif shotNum == 0:
-				if pinsKnocked + self.shots[0].pinsKnocked > 10:
+				if pinsKnocked + self.shots[1].pinsKnocked > 10:
 					print("ERROR: Total pins knocked cannot be more than 10")
+					return False
+				elif pinsKnocked + self.shots[1].pinsKnocked < 10 and self.shots[2].pinsKnocked > 0:
+					print("ERROR: Current input will invalidate 3rd shot, set 3rd shot to 0 before setting this shot")
 					return False
 				else:
 					return True
 			elif shotNum == 1:
-				if pinsKnocked + self.shots[1].pinsKnocked > 10 and not self.isStrike:
+				if pinsKnocked + self.shots[0].pinsKnocked > 10 and not self.isStrike:
 					print("ERROR: Total pins knocked cannot be more than 10")
+					return False
+				elif pinsKnocked + self.shots[0].pinsKnocked < 10 and self.shots[2].pinsKnocked > 0:
+					print("ERROR: Current input will invalidate 3rd shot, set 3rd shot to 0 before setting this shot")
 					return False
 				else:
 					return True

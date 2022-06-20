@@ -1,0 +1,48 @@
+Standard score count test:
+	Create New Game
+	Follow scoring as shown in http://www.fryes4fun.com/Bowling/scoring.htm
+	If score sum is 149
+		TEST PASS
+	Else
+		TEST FAILURE
+
+Modify to Strike/Spare:
+	Continue from previous test
+	Enter Frame 2
+	Modify Shot 2 from 4 pins to 5 pins
+	If score sum on Frame 10 is now 159
+		TEST PASS
+	Else
+		TEST FAILURE
+
+Modify Score:
+	Continue from previous test
+	Enter Frame 7
+	Modify Shot 2 from 3 pins to 4 pins
+	Is score sum on Frame 10 is now 160
+		TEST PASS
+	Else
+		TEST FAILURE
+
+Too Many Points:
+	Continue from previous test
+	Enter Frame 8
+	Modify Shot 2 from 3 pins to 5 pins
+	If game does not accept input and retains current scoring
+		TEST PASS
+
+Too Few Points:
+	Continue from previous test
+	Enter Frame 10
+	Modify Shot 1 from 9 pins to 5 pins
+	If game does not accept input and retains current scoring
+		TEST PASS
+
+Modify to Open
+	Continue from previous test
+	Enter Frame 2
+	Modify Shot 2 from 5 pins to 4 pins
+	If score sum on Frame 10 is now 150
+		TEST PASS
+	Else
+		TEST FAILURE
